@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     isActive:{
         type:Boolean,
-        required:true
+        default:true
     }
 },{
     collection:'users', // name of the collection
