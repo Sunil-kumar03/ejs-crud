@@ -7,7 +7,7 @@ let fAge = document.getElementById('age');
 let fAddr = document.getElementById('address');
 
 
-// not support addEvent listener
+// engines does'nt support addEvent listener
 // userForm.addEventListener('submit',function(event){
 //     event.preventDefault();
 //     const data = {
@@ -29,6 +29,7 @@ const submitHandler = async (event)=> {
         address:fAddr.value
     }
     console.log(`new user submitted`,data);
+    
     await fetch(`http://localhost:4500/api/user/new`,{
         method:"POST",
         headers:{
