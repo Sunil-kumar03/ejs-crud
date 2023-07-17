@@ -34,8 +34,84 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form id="userForm" onsubmit="updateHandler(event)" method="post">
+                    <div class="form-group mt-2">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="mobile">Mobile</label>
+                        <input type="mobile" name="mobile" id="mobile" class="form-control" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="age">Age</label>
+                        <input type="number" name="age" id="age" class="form-control" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address" cols="30" rows="10" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group mt-2 mb-2">
+                        <input type="submit" value="Edit User" class="btn btn-outline-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        let URL = 'http://localhost:4500';
+        let name = document.getElementById('name');
+        let email = document.getElementById('email');
+        let mobile = document.getElementById('mobile');
+        let age = document.getElementById('age');
+        let address = document.getElementById('address');
 
+        //to read query data from url address
+        let params = window.location.search;
+        let id = new URLSearchParams(params).get('id'); 
+        console.log('user id =',id);
+
+        (function(){
+            if (id) {
+                fetch(`${URL}/api/user/${id}`)
+                .then(out => out.json())
+                .then(res=>{
+                    printValue(res.user)
+                   // console.log(`single user =`,res);
+                }).catch(err => console.log(err.message)) 
+            }
+        })()
+
+        function printValue(user){
+            name.value=user.name;
+            email.value=user.email;
+            mobile.value=user.mobile;
+            age.value=user.age;
+            address.value=user.address;
+        }
+
+        //edit handler
+        const updateHandler = async (event) =>{
+            event.preventDefault();
+            let data ={
+                name: name.value,
+                email:email.value,
+                mobile:mobile.value,
+                age:age.value,
+                address:address.value,
+            }
+            console.log(`updated data =`,data)
+        }
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
