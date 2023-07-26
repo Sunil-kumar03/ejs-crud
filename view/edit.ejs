@@ -108,7 +108,17 @@
                 age:age.value,
                 address:address.value,
             }
-            console.log(`updated data =`,data)
+            //console.log(`updated data =`,data)
+
+            await fetch(`${URL}/api/user/${id}`,{
+                method:'PATCH',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify(data)
+            }).then(out => out.json())
+            .then(res =>{
+                window.alert(res.msg);
+                window.location.href="/";
+            }).catch(err => console.log(err.msg))
         }
     </script>
     

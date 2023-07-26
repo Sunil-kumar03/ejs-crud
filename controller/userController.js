@@ -82,8 +82,23 @@ const userController={
             return res.status(500).json({msg:err.message})
         }
     },
+    deleteUser:async (req,res)=>{
+        try {
+            let id = req.params.id
+
+            let extUser = await User.findById({ _id:id})
+            if (!extUser) 
+                return res.status(404).json({msg:`Requested user id not found`})
+
+            await User.findByIdAndDelete({ _id:id})
+                return res.status(200).json({msg:`User data deleted successfully`})
+            
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     pnf:(req,res)=>{
-        res.render('pnf.ejs')
+        res.render('pnf.ejs') //pnf is default controller so it must be at the end
     }
 }
 

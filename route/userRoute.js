@@ -20,6 +20,9 @@ userRoute.get(`/api/user/:id`,userController.readSingleUser)
 //to update single user data
 userRoute.patch(`/api/user/:id`,userController.updateUser)
 
+//to delete user
+userRoute.delete(`/api/user/:id`,userController.deleteUser)
+
 // request method => all -> only assigned to default route
 userRoute.all(`**`,userController.pnf)
 
